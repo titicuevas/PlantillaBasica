@@ -40,13 +40,15 @@ class ArticuloController extends Controller
     $valorActual = $request->session()->get('articulos', []);
 
 
+
     if (!isset($valorActual[$id])) {
         $valorActual[$id] = 0;
     }
-    
+
     $valorActual[$id]++;
 
     $request->session()->put('articulos', $valorActual);
+    
 
     return redirect()->route('articulo.index');
 }
@@ -127,6 +129,9 @@ class ArticuloController extends Controller
      */
     public function destroy(articulo $articulo)
     {
-        //
+        //$articulo = articulo::findOrFail($id);
+        $articulo->delete();
+
+        return redirect()->back()->with('success','Articulo borrado correctamente');
     }
 }
